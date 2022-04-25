@@ -26,5 +26,28 @@
 </html>
 
 <script src="scripts/checkout.js">
+        
+          // Each ticket will cost 100 Rupees
+// If wallet amount is insufficient show alert "Insufficient Balance!";
+// Else show "Booking successfull!" and adjust the wallet amount in real time
 
+let takedata=JSON.parse(localStorage.getItem("movie"))
+
+console.log(takedata)
+let moivebox=document.getElementById("movie")
+takedata.map(function(el,index){
+    let div=document.createElement("div")
+
+    let image=document.createElement("img")
+    image.src=el.Poster
+
+    let title=document.createElement("h3")
+    title.innerText=el.Title
+
+
+   
+
+    div.append(image,title)
+    moivebox.append(div)
+})
 </script>

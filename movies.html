@@ -45,5 +45,121 @@
   </body>
 </html>
 <script src="scripts/movies.js">
+       
+         // Implement debouncing for network request
+// On clicking book now store the selected movie in localstorage as key "movie"
+// so that you can retrive it on checkout.html page
 
+   async function movies(){
+      
+      try{
+          const query=document.getElementById("search").value
+  
+          // 999b0b95
+      // console.log(query)
+      // let url=`http://www.omdbapi.com/?apikey=999b0b95&s${thor}`
+  
+      // api=https://www.omdbapi.com/?s=thor&apikey=999b0b95
+      // console.log(url)
+  
+      const res= await fetch(`http://www.omdbapi.com/?s=${query}&apikey=999b0b95`)
+        const data= await res.json()
+      //   append(data)
+      // console.log(data)
+      const maindata= data.Search
+      console.log(maindata)
+        return maindata
+      }
+      catch(err)
+      {
+          console.log(err)
+      }
+  
+      // let url=`http://www.omdbapi.com/?s=${query}&apikey=999b0b95`
+  
+  
+  
+    }
+    let box=document.getElementById("search_bar");
+     let moivebox=document.getElementById("movies")
+  //   let arr=[]
+    function append(data){
+          // box.innerHTML=null
+  
+        data.map(function(el,index){
+         
+             let p= document.createElement("p")
+  
+             p.innerText=el.Title
+  
+             box.append(p)
+  
+        })
+  
+        data.map(function(el,index){
+            let div=document.createElement("div")
+  
+            let image=document.createElement("img")
+            image.src=el.Poster
+  
+            let title=document.createElement("h3")
+            title.innerText=el.Title
+  
+            let date=document.createElement("p")
+  
+            date.innerText=el.Year
+  
+            let add=document.createElement("button")
+  
+            add.innerText="Book Now"
+  
+            add.addEventListener("click",function(){
+                
+                MoivesAdd(el,index)
+            })
+  
+            div.append(image,title,date,add)
+            moivebox.append(div)
+        })
+  
+    }
+  //   arr.push(p)
+  
+  
+  //   console.log(arr)
+  
+   async function main()
+    {
+        let data= await movies()
+  
+        if(data==undefined)
+        {
+            return false
+        }
+  
+        append(data)
+    }
+    let id;
+    function debounce(func,dealy)
+    {
+       if(id)
+       {
+           setTimeout(id)
+       }
+       setTimeout(function(){
+           func()
+       },dealy)
+    }
+      let arr=JSON.parse(localStorage.getItem("movie"))||[]
+    function MoivesAdd(el,index)
+    {
+       arr.push(el)
+  
+       console.log(arr)
+       
+       localStorage.setItem("movie",JSON.stringify(arr))
+  
+       window.location.href="checkout.html"
+    }
+  
 </script>
